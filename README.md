@@ -18,4 +18,4 @@ The upload needs the repository secret `CF_API_KEY` (a CurseForge API token).
 
 ## License
 
-MIT
+GPL-3.0, see `LICENSE`. The dungeon quest data in `DungeonData.lua` is generated from [QuestieDB](https://github.com/Questie/QuestieDB) (GPL-3.0); `tools/README.md` shows how to refresh it.

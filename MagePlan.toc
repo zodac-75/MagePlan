@@ -8,7 +8,7 @@
 ## SavedVariablesPerCharacter: MagePlanDB
 ## OptionalDeps: Auctionator
 ## X-Curse-Project-ID: 1785085
-## X-License: MIT
+## X-License: GPL-3.0
 
 Locale.lua
 Data.lua
