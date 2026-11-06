@@ -1,4 +1,9 @@
-# MagePlan 1.7.0
+# MagePlan 1.7.1
+
+**Fixed**
+- Drink reminder: no more "attempt to perform arithmetic on a secret number value" errors when WoW Forever hides your mana value from addons. The reminder now simply waits until the value is readable again.
+
+## 1.7.0
 
 **New**
 - Profiles, shared by all your characters. In the settings window: ◀ Profile ▶ to switch, plus New and Delete. Everything is saved automatically: window positions and sizes, theme, text size and which features are on. Also `/mp profile <name>`.

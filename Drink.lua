@@ -4,15 +4,36 @@ local _, ns = ...
 local f, txt
 local DRINK_BUFFS = { ["Drink"] = true, ["Food & Drink"] = true, ["Refreshment"] = true }
 
+-- Mana in percent, or nil when the game hides the value from addons ("secret" values).
+local function Readable(v)
+  return type(v) == "number" and not (issecretvalue and issecretvalue(v))
+end
+
+function ns.ManaPct()
+  local ok, pct = pcall(function()
+    local cur, max = UnitPower("player", 0), UnitPowerMax("player", 0)
+    if Readable(cur) and Readable(max) and max > 0 then return cur / max * 100 end
+  end)
+  if ok and pct then return pct end
+  if UnitPowerPercent then
+    local scale = CurveConstants and CurveConstants.ScaleTo100
+    local ok2, p = pcall(UnitPowerPercent, "player", 0, false, scale)
+    if ok2 and Readable(p) then
+      if not scale and p <= 1 then p = p * 100 end
+      return p
+    end
+  end
+  return nil
+end
+
 local function Check()
   if not f then return end
   if ns.db.drinkOff or UnitAffectingCombat("player") or (UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then
     f:Hide()
     return
   end
-  local max = UnitPowerMax and UnitPowerMax("player", 0) or 0
-  if not max or max <= 0 then f:Hide() return end
-  local pct = (UnitPower("player", 0) or 0) / max * 100
+  local pct = ns.ManaPct()
+  if not pct then f:Hide() return end
   local drinking = ns.ForEachAura("player", "HELPFUL", function(n) return DRINK_BUFFS[n] end)
   if pct < (ns.db.drinkPct or 40) and not drinking then
     txt:SetText("|cff66ccff" .. ns.T("DRINK", math.floor(pct)) .. "|r")
