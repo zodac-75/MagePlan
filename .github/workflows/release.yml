@@ -49,13 +49,21 @@ jobs:
             git tag -a "$VERSION" -m "MagePlan $VERSION"
             git push origin "$VERSION"
             echo "Releasing version $VERSION."
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
             echo "release=true" >> "$GITHUB_OUTPUT"
           fi
 
+      # The packager is run directly instead of as an action. On a push to a
+      # branch, the action sees the new tag and stops ("Found future tag"),
+      # expecting a separate tag run, but tags pushed from a workflow don't
+      # start new runs. Telling it this is a tag run makes it upload.
       - name: Package and upload to CurseForge
         if: steps.version.outputs.release == 'true'
-        uses: BigWigsMods/packager@v2
-        with:
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git clone --depth 1 --branch v2 https://github.com/BigWigsMods/packager "$RUNNER_TEMP/packager"
           # -g: CurseForge game version for WoW Forever.
-          # -n: zip name, e.g. MagePlan-1.6.1.zip
-          args: -g 1.60.1 -n "{package-name}-{project-version}"
+          # -n: zip name, e.g. MagePlan-1.7.0.zip
+          GITHUB_EVENT_NAME=release GITHUB_REF="refs/tags/$VERSION" GITHUB_REF_NAME="$VERSION" \
+            "$RUNNER_TEMP/packager/release.sh" -g 1.60.1 -n "{package-name}-{project-version}"
