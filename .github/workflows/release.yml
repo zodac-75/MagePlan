@@ -1,15 +1,21 @@
-# Packages MagePlan and uploads it to CurseForge when a version tag is pushed.
-# Tag format: 1.6.1 (no "v"). The tag becomes the addon version and the zip name.
+# Releases MagePlan to CurseForge.
+#
+# How it works: on every push to main, the workflow reads the version from the
+# first line of CHANGELOG.md ("# MagePlan 1.6.1"). If that version has no tag
+# yet, it creates the tag, packages the addon as MagePlan-<version>.zip and
+# uploads it to CurseForge with the changelog. Pushes that don't change the
+# version do nothing.
+#
 # Needs the repository secret CF_API_KEY (a CurseForge API token).
 name: Release
 
 on:
   push:
-    tags:
-      - "*"
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: write # lets the packager create a GitHub release with the zip
+  contents: write # create the version tag and a GitHub release
 
 jobs:
   release:
@@ -23,7 +29,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Package and upload
+      - name: Read version and tag it if new
+        id: version
+        run: |
+          VERSION=$(head -n 1 CHANGELOG.md | sed -n 's/^# MagePlan \([0-9][0-9.]*\).*$/\1/p')
+          if [ -z "$VERSION" ]; then
+            echo "First line of CHANGELOG.md must look like: # MagePlan 1.6.1"
+            exit 1
+          fi
+          if git rev-parse -q --verify "refs/tags/$VERSION" >/dev/null; then
+            echo "Version $VERSION is already released, nothing to do."
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "$VERSION" -m "MagePlan $VERSION"
+            git push origin "$VERSION"
+            echo "Releasing version $VERSION."
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Package and upload to CurseForge
+        if: steps.version.outputs.release == 'true'
         uses: BigWigsMods/packager@v2
         with:
           # -g: CurseForge game version for WoW Forever.
