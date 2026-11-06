@@ -1,4 +1,9 @@
-# MagePlan 1.7.1
+# MagePlan 1.7.2
+
+**Removed**
+- "Saved recipes" (`/mp recipes`) and its button in the settings window. It was a check tool for the crafting plan and did nothing useful while playing.
+
+## 1.7.1
 
 **Fixed**
 - Drink reminder: no more "attempt to perform arithmetic on a secret number value" errors when WoW Forever hides your mana value from addons. The reminder now simply waits until the value is readable again.

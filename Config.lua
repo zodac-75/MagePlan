@@ -96,7 +96,6 @@ local TOOLS = {
   { key = "MM_RANKS", func = function() Run("ranks") end },
   { key = "MM_DE", func = function() Run("de") end },
   { key = "MM_ALL", func = function() Run("all") end },
-  { key = "MM_RECIPES", func = function() Run("recipes") end },
   { key = "MM_RESET", func = function() Run("reset") end },
   { key = "CFG_HELP", func = function() Run("help") end },
 }

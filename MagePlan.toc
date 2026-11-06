@@ -28,7 +28,6 @@ ZoneTips.lua
 Goals.lua
 XP.lua
 QuestReward.lua
-Recipes.lua
 Drink.lua
 Minimap.lua
 DungeonData.lua
