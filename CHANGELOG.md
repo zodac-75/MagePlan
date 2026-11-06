@@ -1,4 +1,16 @@
-# MagePlan 1.6.1
+# MagePlan 1.7.0
+
+**New**
+- Settings window with the new MagePlan logo. Right-click the minimap icon, type `/mp config`, or find MagePlan under the game's AddOns settings.
+  - Features: turn every alert and helper on or off with checkboxes.
+  - Plan and look: pick talent plan, theme, text size, language and drink-reminder threshold with arrows.
+  - Tools: plan window, crafting assistant, rank check, bag check, recipes, reset windows and more in one click.
+- New minimap icon and addon-list icon.
+
+**Changed**
+- Right-click on the minimap icon now opens the settings window instead of the small menu.
+
+## 1.6.1
 
 - Automatic releases: new versions are now packaged and uploaded to CurseForge straight from GitHub.
 - No gameplay changes since 1.6.0.

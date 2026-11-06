@@ -2,6 +2,7 @@
 ## Title: MagePlan
 ## Notes: Frost mage leveling companion: talent plan, upgrade check, rank check, shatter and polymorph alerts, crafting and disenchant advice, XP tracker.
 ## Author: zodac
+## IconTexture: Interface\AddOns\MagePlan\Media\Icon
 ## Version: @project-version@
 ## SavedVariables: MagePlanGlobal
 ## SavedVariablesPerCharacter: MagePlanDB
@@ -30,3 +31,4 @@ QuestReward.lua
 Recipes.lua
 Drink.lua
 Minimap.lua
+Config.lua

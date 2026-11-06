@@ -6,6 +6,7 @@ local LOOKAHEAD = 3 -- hur många levels framåt som visas
 ns.modules = {}
 ns.commands = {}
 ns.helpLines = {}
+ns.MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
 
 local frame, text
 local db
