@@ -81,6 +81,7 @@ local SELECTORS = {
 
 local TOOLS = {
   { key = "MM_PLAN", func = function() ns.ToggleMain() end },
+  { key = "MM_DUNGEONS", func = function() ns.ToggleDungeons() end },
   { key = "MM_CRAFT", func = function() Run("craft") end },
   { key = "MM_RANKS", func = function() Run("ranks") end },
   { key = "MM_DE", func = function() Run("de") end },

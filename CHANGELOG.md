@@ -1,14 +1,23 @@
-# MagePlan 1.7.0-beta2
+# MagePlan 1.7.0-beta3
 
 **New**
+- Dungeon guide (`/mp dungeons`, or Tools in the settings window): all Alliance leveling dungeons from Deadmines to Stratholme.
+  - Pick a dungeon to see its quests: ✔ in your quest log, completed, available, or what's missing (level, or which pre-quest to do first).
+  - Click a quest to get an arrow to the quest giver (or to the pre-quest's giver). Works with TomTom if you have it.
+  - Mage loot from the bosses, with upgrades marked.
+  - When you zone into a dungeon, MagePlan tells you how many of its quests you have.
+- Waypoint arrow: drag to move, right-click to hide (`/mp clearway`). The spot is also marked on the world map.
 - Settings window with the new MagePlan logo. Right-click the minimap icon, type `/mp config`, or find MagePlan under the game's AddOns settings.
   - Features: turn every alert and helper on or off with checkboxes.
   - Plan and look: pick talent plan, theme, text size, language and drink-reminder threshold with arrows.
-  - Tools: plan window, crafting assistant, rank check, bag check, recipes, reset windows and more in one click.
+  - Tools: plan window, dungeon guide, crafting assistant, rank check, bag check, recipes, reset windows and more in one click.
 - New minimap icon and addon-list icon.
 
 **Changed**
 - Right-click on the minimap icon now opens the settings window instead of the small menu.
+
+Dungeon quest data comes from [QuestieDB](https://github.com/Questie/QuestieDB)'s WoW Forever database.
+
 
 ## 1.6.1
 

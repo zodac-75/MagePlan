@@ -31,4 +31,7 @@ QuestReward.lua
 Recipes.lua
 Drink.lua
 Minimap.lua
+DungeonData.lua
+Arrow.lua
+Dungeons.lua
 Config.lua
