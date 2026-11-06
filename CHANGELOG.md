@@ -1,4 +1,10 @@
-# MagePlan 1.7.2
+# MagePlan 1.7.3
+
+**New**
+- **Train now:** the plan window lists exactly which spell ranks your class trainer has for you (e.g. "Frostbolt 2"), and you get a ping with a sound when something new becomes trainable. `/mp train` shows the list again.
+- Replaces the old "visit your trainer at every even level" reminder, which didn't say what to train and stayed quiet right after install.
+
+## MagePlan 1.7.2
 
 **Removed**
 - "Saved recipes" (`/mp recipes`) and its button in the settings window. It was a check tool for the crafting plan and did nothing useful while playing.
