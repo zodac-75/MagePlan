@@ -1,0 +1,32 @@
+## Interface: 16001, 11509
+## Title: MagePlan
+## Notes: Frost mage leveling companion: talent plan, upgrade check, rank check, shatter and polymorph alerts, crafting and disenchant advice, XP tracker.
+## Author: zodac
+## Version: @project-version@
+## SavedVariables: MagePlanGlobal
+## SavedVariablesPerCharacter: MagePlanDB
+## OptionalDeps: Auctionator
+## X-Curse-Project-ID: 1785085
+## X-License: MIT
+
+Locale.lua
+Data.lua
+CraftData.lua
+MagePlan.lua
+Plans.lua
+Ranks.lua
+Talents.lua
+Trainer.lua
+Shatter.lua
+Craft.lua
+Disenchant.lua
+Upgrades.lua
+Polymorph.lua
+Supplies.lua
+ZoneTips.lua
+Goals.lua
+XP.lua
+QuestReward.lua
+Recipes.lua
+Drink.lua
+Minimap.lua

@@ -1,0 +1,31 @@
+# Packages MagePlan and uploads it to CurseForge when a version tag is pushed.
+# Tag format: 1.6.1 (no "v"). The tag becomes the addon version and the zip name.
+# Needs the repository secret CF_API_KEY (a CurseForge API token).
+name: Release
+
+on:
+  push:
+    tags:
+      - "*"
+
+permissions:
+  contents: write # lets the packager create a GitHub release with the zip
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Package and upload
+        uses: BigWigsMods/packager@v2
+        with:
+          # -g: CurseForge game version for WoW Forever.
+          # -n: zip name, e.g. MagePlan-1.6.1.zip
+          args: -g 1.60.1 -n "{package-name}-{project-version}"
