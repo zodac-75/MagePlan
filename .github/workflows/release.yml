@@ -6,6 +6,9 @@
 # uploads it to CurseForge with the changelog. Pushes that don't change the
 # version do nothing.
 #
+# A version with "beta" or "alpha" in it (e.g. "# MagePlan 1.7.0-beta1") is
+# uploaded as a beta/alpha file on CurseForge, which only opted-in players get.
+#
 # Needs the repository secret CF_API_KEY (a CurseForge API token).
 name: Release
 
@@ -32,7 +35,7 @@ jobs:
       - name: Read version and tag it if new
         id: version
         run: |
-          VERSION=$(head -n 1 CHANGELOG.md | sed -n 's/^# MagePlan \([0-9][0-9.]*\).*$/\1/p')
+          VERSION=$(head -n 1 CHANGELOG.md | sed -n 's/^# MagePlan \([0-9][0-9.]*\(-[A-Za-z0-9.]*\)\{0,1\}\).*$/\1/p')
           if [ -z "$VERSION" ]; then
             echo "First line of CHANGELOG.md must look like: # MagePlan 1.6.1"
             exit 1

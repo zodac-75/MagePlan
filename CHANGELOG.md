@@ -1,4 +1,4 @@
-# MagePlan 1.7.0
+# MagePlan 1.7.0-beta1
 
 **New**
 - Settings window with the new MagePlan logo. Right-click the minimap icon, type `/mp config`, or find MagePlan under the game's AddOns settings.
