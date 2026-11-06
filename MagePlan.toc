@@ -35,3 +35,4 @@ DungeonData.lua
 Arrow.lua
 Dungeons.lua
 Config.lua
+Profiles.lua

@@ -1,6 +1,9 @@
-# MagePlan 1.7.0-beta3
+# MagePlan 1.7.0-beta4
 
 **New**
+- Profiles, shared by all your characters. In the settings window: ◀ Profile ▶ to switch, plus New and Delete. Everything is saved automatically: window positions and sizes, theme, text size and which features are on. Also `/mp profile <name>`.
+- "In dungeons": pick a profile that loads by itself when you enter a dungeon; your normal one comes back when you leave.
+- Checkbox "Open dungeon guide in dungeons": opens the guide on that dungeon's quests and loot when you zone in.
 - Dungeon guide (`/mp dungeons`, or Tools in the settings window): all Alliance leveling dungeons from Deadmines to Stratholme.
   - Pick a dungeon to see its quests: ✔ in your quest log, completed, available, or what's missing (level, or which pre-quest to do first).
   - Click a quest to get an arrow to the quest giver (or to the pre-quest's giver). Works with TomTom if you have it.

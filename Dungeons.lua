@@ -553,6 +553,10 @@ local function OnZone()
   lastInst = instID
   for _, d in ipairs(ns.DUNGEONS) do
     if d.inst == instID then
+      if ns.db.dungeonAutoOpen and win then
+        win:Show()
+        Select(d)
+      end
       ScanLog()
       local have, missing, seen = 0, 0, {}
       for _, id in ipairs(d.q) do
@@ -579,3 +583,7 @@ ns.RegisterModule(function()
 end)
 
 ns.RegisterCommand("dungeons", true, function(rest) ns.ToggleDungeons(rest) end)
+ns.RegisterCommand("dungeonauto", true, function()
+  ns.db.dungeonAutoOpen = not ns.db.dungeonAutoOpen
+  ns.Print(ns.db.dungeonAutoOpen and ns.T("DG_AUTO_ON") or ns.T("DG_AUTO_OFF"))
+end)

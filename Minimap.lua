@@ -74,6 +74,13 @@ local function CreateButton()
   if ns.db.minimapHidden then btn:Hide() end
 end
 
+-- Used by profiles after they change the icon's place or visibility.
+function ns.UpdateMinimapButton()
+  if not btn then return end
+  UpdatePosition()
+  if ns.db.minimapHidden then btn:Hide() else btn:Show() end
+end
+
 ns.RegisterModule(CreateButton)
 
 ns.RegisterCommand("minimap", true, function()

@@ -43,6 +43,7 @@ local FEATURES = {
   { key = "MM_DRINK", on = function() return not ns.db.drinkOff end, cmd = "drink" },
   { key = "MM_XP", on = function() return not ns.db.xpOff end, cmd = "xp" },
   { key = "MM_ZONE", on = function() return not ns.db.zoneTipsOff end, cmd = "zonetips" },
+  { key = "CFG_DGAUTO", on = function() return ns.db.dungeonAutoOpen end, cmd = "dungeonauto" },
   { key = "MM_LOCK", on = function() return ns.db.locked end, cmd = "lock" },
   { key = "CFG_MINIMAP", on = function() return not ns.db.minimapHidden end, cmd = "minimap" },
 }
@@ -77,6 +78,15 @@ local SELECTORS = {
       local n = math.max(10, math.min(90, (ns.db.drinkPct or 40) + dir * 5))
       Run("drinkat", tostring(n))
     end },
+}
+
+local PROFILE_SELECTORS = {
+  { key = "CFG_PROFILE",
+    value = function() return ns.ActiveProfile() end,
+    step = function(dir) ns.StepProfile(dir) end },
+  { key = "CFG_DGPROFILE",
+    value = function() return ns.DungeonProfile() or ns.T("CFG_OFF") end,
+    step = function(dir) ns.StepDungeonProfile(dir) end },
 }
 
 local TOOLS = {
@@ -242,25 +252,46 @@ local function CreateConfig()
   Header(win, "CFG_LOOK", 288, top)
   for i, item in ipairs(SELECTORS) do SelectorRow(win, item, 288, top - 24 - (i - 1) * 28) end
   local hint = win:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-  hint:SetPoint("TOPLEFT", 288, top - 24 - #SELECTORS * 28 - 6)
+  hint:SetPoint("TOPLEFT", 288, top - 24 - #SELECTORS * 28 - 2)
   hint:SetWidth(236)
   hint:SetJustifyH("LEFT")
   hint.key = "MM_HINT"
   table.insert(labels, hint)
 
-  -- Bottom: tools, two columns of buttons
-  local toolsTop = top - 22 - #FEATURES * 22 - 14
+  -- Right, below: profiles (shared by all characters)
+  local py = top - 24 - #SELECTORS * 28 - 34
+  Header(win, "CFG_PROFILES", 288, py)
+  for i, item in ipairs(PROFILE_SELECTORS) do SelectorRow(win, item, 288, py - 24 - (i - 1) * 28) end
+  py = py - 24 - #PROFILE_SELECTORS * 28
+  local function SmallButton(key, x, fn)
+    local b = CreateFrame("Button", nil, win, "UIPanelButtonTemplate")
+    b:SetSize(115, 22)
+    b:SetPoint("TOPLEFT", x, py)
+    b.key = key
+    b:SetScript("OnClick", function()
+      local ok, err = pcall(fn)
+      if not ok then ns.Print(ns.T("ERROR", tostring(err))) end
+      Refresh()
+    end)
+    table.insert(win.tools, b)
+  end
+  win.tools = {}
+  SmallButton("CFG_NEW", 288, function() ns.AskNewProfile() end)
+  SmallButton("CFG_DELETE", 409, function() ns.AskDeleteProfile() end)
+  py = py - 26
+
+  -- Bottom: tools, three columns of buttons
+  local toolsTop = math.min(top - 22 - #FEATURES * 22, py) - 14
   Header(win, "CFG_TOOLS", 16, toolsTop)
   local line = win:CreateTexture(nil, "ARTWORK")
   line:SetColorTexture(0.41, 0.8, 0.94, 0.35)
   line:SetPoint("TOPLEFT", 252, toolsTop - 16)
   line:SetSize(272, 1)
-  win.tools = {}
   for i, t in ipairs(TOOLS) do
     local b = CreateFrame("Button", nil, win, "UIPanelButtonTemplate")
-    b:SetSize(250, 22)
-    local col, row = (i - 1) % 2, math.floor((i - 1) / 2)
-    b:SetPoint("TOPLEFT", 16 + col * 258, toolsTop - 24 - row * 26)
+    b:SetSize(164, 22)
+    local col, row = (i - 1) % 3, math.floor((i - 1) / 3)
+    b:SetPoint("TOPLEFT", 16 + col * 172, toolsTop - 24 - row * 26)
     b.key = t.key
     b:SetScript("OnClick", function()
       local ok, err = pcall(t.func)
@@ -269,7 +300,7 @@ local function CreateConfig()
     end)
     table.insert(win.tools, b)
   end
-  local rows = math.ceil(#TOOLS / 2)
+  local rows = math.ceil(#TOOLS / 3)
   win:SetHeight(-(toolsTop - 24 - rows * 26) + 12)
 
   win:SetScript("OnShow", Refresh)
