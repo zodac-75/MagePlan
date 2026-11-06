@@ -2,6 +2,9 @@
 -- Text entries are either a plain string or { "English", "Svenska" }.
 local _, ns = ...
 
+-- Main professions until you pick or learn others.
+ns.DEFAULT_PROFS = { "Tailoring", "Enchanting" }
+
 -- Talent point per level (Frost leveling, 10/0/41 at 50, then 10 in Arcane).
 -- Checked against the live tree (build 1.60.1.70755).
 ns.talents = {

@@ -21,6 +21,16 @@ local TIPS = {
     text = { "Lorelae Wintersong sells the Runed Arcanite Rod formula here.", "Lorelae Wintersong säljer formeln för Runed Arcanite Rod här." } },
   { zone = "Mount Hyjal", prof = "Tailoring",
     text = { "Aisarra Nightmeadow sells the Malleable Essence of Nature pattern here (for Manaflare).", "Aisarra Nightmeadow säljer mönstret för Malleable Essence of Nature här (för Manaflare)." } },
+  { zone = "Ironforge", prof = "Alchemy",
+    text = { "Alchemy here: Vosur Brakthel (Apprentice, Tinker Town) and Tally Berryfizz (Journeyman, level 10).", "Alchemy här: Vosur Brakthel (Apprentice, Tinker Town) och Tally Berryfizz (Journeyman, level 10)." } },
+  { zone = "Darnassus", prof = "Alchemy",
+    text = { "Ainethil trains Expert Alchemy here (level 20). Ulthir sells the Superior Mana Potion recipe.", "Ainethil tränar Expert Alchemy här (level 20). Ulthir säljer receptet på Superior Mana Potion." } },
+  { zone = "Feathermoon", prof = "Alchemy",
+    text = { "Kylanna Windwhisper trains Artisan Alchemy here (level 35), and Logannas sells the Nature Protection Potion recipe.", "Kylanna Windwhisper tränar Artisan Alchemy här (level 35), och Logannas säljer receptet på Nature Protection Potion." } },
+  { zone = "Stormwind", prof = "Alchemy",
+    text = { "Algernon sells the Superior Mana Potion recipe (Alchemy 265).", "Algernon säljer receptet på Superior Mana Potion (Alchemy 265)." } },
+  { zone = "Three Corners", prof = "Alchemy",
+    text = { "Nina Surefire sells Alchemy recipes for Merchant's Favor here, including Major Frenzy Potion (290-300).", "Nina Surefire säljer Alchemy-recept för Merchant's Favor här, bland annat Major Frenzy Potion (290-300)." } },
 }
 
 local shown = {}
@@ -45,7 +55,7 @@ local function Check()
       local relevant = true
       if tip.prof then
         local skill = ns.GetProfSkill(tip.prof)
-        relevant = skill ~= nil and skill < 300
+        relevant = ns.HasProf(tip.prof) and (skill == nil or skill < 300)
       end
       if relevant then
         shown[i] = true
