@@ -1,4 +1,4 @@
-# MagePlan 1.7.0-beta4
+# MagePlan 1.7.0
 
 **New**
 - Profiles, shared by all your characters. In the settings window: ◀ Profile ▶ to switch, plus New and Delete. Everything is saved automatically: window positions and sizes, theme, text size and which features are on. Also `/mp profile <name>`.
